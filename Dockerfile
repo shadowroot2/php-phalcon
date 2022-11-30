@@ -14,8 +14,8 @@ RUN set -xe  \
     mc \
     libpng-dev \
     autoconf \
+    zlib1g \
     zlib1g-dev \
-    zlib \
     && pecl channel-update pecl.php.net \
     && pecl install psr-{$PSR_VERSION} \
     && pecl install phalcon-{$PHALCON_VERSION}
