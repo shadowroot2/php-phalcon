@@ -2,32 +2,27 @@ FROM php:7.4-fpm
 
 MAINTAINER Dmitriy Trigub <dm.trigub@gmail.com>
 
-# ENV LD_LIBRARY_PATH=/usr/local/libx
 ARG PSR_VERSION=1.1.0
 ARG PHALCON_VERSION=4.1.2
-ARG PHALCON_EXT_PATH=php7/64bits
 
-# COPY --from=composer /usr/bin/composer /usr/bin/composer
+RUN set -xe && \
+    # Download PSR, see https://github.com/jbboehr/php-psr
+    curl -LO https://github.com/jbboehr/php-psr/archive/v${PSR_VERSION}.tar.gz && \
+    tar xzf /v${PSR_VERSION}.tar.gz && \
+    # Download Phalcon
+    curl -LO https://github.com/phalcon/cphalcon/archive/v${PHALCON_VERSION}.tar.gz && \
+    tar xzf /v${PHALCON_VERSION}.tar.gz && \
+    docker-php-ext-install -j $(getconf _NPROCESSORS_ONLN) \
+        /php-psr-${PSR_VERSION} \
+        /cphalcon-${PHALCON_VERSION}/build/phalcon \
+    && \
+    # Remove all temp files
+    rm -r \
+        /v${PSR_VERSION}.tar.gz \
+        /php-psr-${PSR_VERSION} \
+        /v${PHALCON_VERSION}.tar.gz \
+        /cphalcon-${PHALCON_VERSION} \
+    && \
+    php -m \
 
-RUN set -xe  \
-    && apt-get update  \
-    && apt-get install -y \
-    mc \
-    libpng-dev \
-    autoconf \
-    zlib1g \
-    zlib1g-dev
-RUN pecl channel-update pecl.php.net \
-    && pecl install psr-$PSR_VERSION \
-#    && pecl install phalcon-$PHALCON_VERSION
-RUN docker-php-ext-install -j $(getconf _NPROCESSORS_ONLN) \
-    ${PWD}/php-psr-${PSR_VERSION} \
-#   ${PWD}/cphalcon-${PHALCON_VERSION}/build/${PHALCON_EXT_PATH}
-# Remove all temp files
-RUN rm -r \
-    ${PWD}/v${PSR_VERSION}.tar.gz \
-    ${PWD}/php-psr-${PSR_VERSION} \
-#    ${PWD}/v${PHALCON_VERSION}.tar.gz \
-#    ${PWD}/cphalcon-${PHALCON_VERSION} \
-# Show modules
-RUN php -m
+COPY --from=composer /usr/bin/composer /usr/bin/composer
