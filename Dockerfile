@@ -2,7 +2,7 @@ FROM php:7.4-fpm
 
 MAINTAINER Dmitriy Trigub <dm.trigub@gmail.com>
 
-ENV LD_LIBRARY_PATH=/usr/local/libx
+# ENV LD_LIBRARY_PATH=/usr/local/libx
 ARG PSR_VERSION=1.1.0
 ARG PHALCON_VERSION=4.1.2
 ARG PHALCON_EXT_PATH=php7/64bits
