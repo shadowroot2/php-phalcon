@@ -1,4 +1,5 @@
 FROM php:7.4-fpm
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 RUN apt-get update && apt-get install -y \
 		mc \
 		libpng-dev \
@@ -13,6 +14,4 @@ RUN apt-get update && apt-get install -y \
        zlib1g-dev \
     && apt-get autoremove
 WORKDIR /var/www/html
-
-EXPOSE 80
 
