@@ -13,5 +13,6 @@ RUN apt-get update && apt-get install -y \
        autoconf \
        zlib1g-dev \
     && apt-get autoremove
+
 WORKDIR /var/www/html
 
