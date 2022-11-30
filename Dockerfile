@@ -17,8 +17,8 @@ RUN set -xe  \
     zlib1g \
     zlib1g-dev
 RUN pecl channel-update pecl.php.net \
-    && pecl install psr-{$PSR_VERSION} \
-    && pecl install phalcon-{$PHALCON_VERSION}
+    && pecl install psr-$PSR_VERSION \
+    && pecl install phalcon-$PHALCON_VERSION
 RUN docker-php-ext-install -j $(getconf _NPROCESSORS_ONLN) \
     ${PWD}/php-psr-${PSR_VERSION} \
     ${PWD}/cphalcon-${PHALCON_VERSION}/build/${PHALCON_EXT_PATH}
