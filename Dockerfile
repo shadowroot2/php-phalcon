@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y \
         autoconf \
         zlib1g-dev \
     && pecl channel-update pecl.php.net \
-    && pecl install -y \
+    && pecl install \
        psr \
        phalcon-4.1.2 \
     && apt-get remove -y  \
