@@ -8,11 +8,9 @@ RUN apt-get update && apt-get install -y \
     && pecl channel-update pecl.php.net \
     && pecl install \
        psr \
-       phalcon \
+       phalcon-4.1.2 \
     && apt-get remove  \
        autoconf \
        zlib1g-dev \
     && apt-get autoremove
-
-WORKDIR /var/www/html
 
