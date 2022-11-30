@@ -15,8 +15,8 @@ RUN set -xe  \
     libpng-dev \
     autoconf \
     zlib1g \
-    zlib1g-dev \
-    && pecl channel-update pecl.php.net \
+    zlib1g-dev
+RUN pecl channel-update pecl.php.net \
     && pecl install psr-{$PSR_VERSION} \
     && pecl install phalcon-{$PHALCON_VERSION}
 RUN docker-php-ext-install -j $(getconf _NPROCESSORS_ONLN) \
