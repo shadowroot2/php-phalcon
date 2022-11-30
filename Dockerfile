@@ -7,7 +7,7 @@ ARG PHALCON_EXT_PATH=php7/64bits
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 RUN apt-get update && \
-    apt-get install -y php-memcached \
+    apt-get install -y php-memcached && \
     set -xe && \
     # Download PSR, see https://github.com/jbboehr/php-psr
     curl -LO https://github.com/jbboehr/php-psr/archive/v${PSR_VERSION}.tar.gz && \
