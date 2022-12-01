@@ -6,6 +6,8 @@ ARG PSR_VERSION=1.1.0
 ARG PHALCON_VERSION=4.1.2
 ARG PHALCON_EXT_PATH=php7/64bits
 
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+
 RUN set -xe && \
         # Download PSR, see https://github.com/jbboehr/php-psr
         curl -LO https://github.com/jbboehr/php-psr/archive/v${PSR_VERSION}.tar.gz && \
@@ -25,5 +27,3 @@ RUN set -xe && \
             ${PWD}/cphalcon-${PHALCON_VERSION} \
         && \
         php -m
-
-COPY docker-phalcon-* /usr/local/bin/
