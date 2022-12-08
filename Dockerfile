@@ -19,13 +19,18 @@ RUN apt-get update && \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
     	libpng-dev \
-    	libmcrypt-dev
+    	libmcrypt-dev \
+        libmemcached-dev
 
 # PECL
-RUN pecl install mcrypt-1.0.3
+RUN pecl install mcrypt-1.0.3 && \
+    pecl install memcache-4.0.5.2 && \
+    pecl install memcached-3.2.0
 
 # PHP EXT
 RUN docker-php-ext-enable mcrypt && \
+    docker-php-ext-enable memcache && \
+    docker-php-ext-enable memcached && \
     docker-php-ext-install zip && \
     docker-php-ext-install mysqli &&  \
     docker-php-ext-install pdo_mysql && \
