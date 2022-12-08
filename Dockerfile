@@ -24,13 +24,15 @@ RUN apt-get update && \
 # PECL
 RUN pecl install mcrypt-1.0.3
 
-# DOCKER EXT
+# PHP EXT
 RUN docker-php-ext-enable mcrypt && \
     docker-php-ext-install zip && \
     docker-php-ext-install mysqli &&  \
     docker-php-ext-install pdo_mysql && \
     docker-php-ext-configure gd --with-freetype --with-jpeg && \
-    docker-php-ext-install gd
+    docker-php-ext-install gd && \
+    docker-php-ext-install sockets && \
+    docker-php-ext-install calendar
 
 # Устанавливаем Phalcon
 RUN set -xe && \
